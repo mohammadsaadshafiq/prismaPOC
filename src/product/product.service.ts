@@ -1,14 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { Product } from '../product';
+import { PrismaClient, Prisma } from '@prisma/client'
 @Injectable()
 export class ProductService {
   constructor() {} // private productRepo: MongoRepository<Products>, // @InjectRepository(Products)
   products: Product[] = [];
-
+  prisma = new PrismaClient()
   // With TypeORM method
-  create(createProductDto: Product) {
-    createProductDto.productId = crypto.randomUUID();
-  //  return this.productRepo.save(createProductDto); //use update with upsert
+   create(createProductDto: Product) {
+    ///createProductDto.productId = crypto.randomUUID();
+    return this.prisma.product.create({ data: createProductDto });
+   //return this.productRepo.save(createProductDto); //use update with upsert
   }
   async findAll(){
    // return this.productRepo.find();
