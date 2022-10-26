@@ -1,3 +1,4 @@
+<a href="https://medium.com/@saad.shafiq1997/connect-prisma-with-mongo-db-image-358ddcc300ee" target="_blank"><img src="" alt="Medium article" /></a>
 <a href="https://medium.com/@saad.shafiq1997/connect-prisma-with-mongo-db-image-358ddcc300ee"></a>
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
