@@ -9,6 +9,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import {changeName} from '../common/utils'
 import { Product } from '../product';
 import { ProductService } from '../product/product.service';
 //import { ApiBody, ApiOkResponse, ApiCreatedResponse } from '@nestjs/swagger';
@@ -22,7 +23,7 @@ export class ProductController {
     return this.productService.create(createUserDto);
   }
   @Get()
-  //   @ApiOkResponse({ description: 'All Products' })
+  //  @ApiOkResponse({ description: 'All Products' })
   getAll() {
     const products = this.productService.findAll();
     return products;
@@ -30,8 +31,10 @@ export class ProductController {
   @Put(':id')
   //   @ApiBody({ type: Product })
   //   @ApiCreatedResponse({ description: 'Update Product' })
-  update(@Param('id') id: string, @Body() updatedProduct: Product) {
-    return this.productService.update(id, updatedProduct);
+  update(@Param('id') productId: string, @Body() updatedProduct: Product) {
+    var result  =this.productService.update(productId, updatedProduct);
+    result = changeName(result,productId)
+    return result
   }
   @Delete(':id')
   //   @ApiOkResponse({ description: 'Product Removed' })

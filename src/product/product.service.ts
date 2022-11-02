@@ -1,33 +1,37 @@
 import { Injectable } from '@nestjs/common';
-import { Product } from '../product';
+import { Product } from '../product'; 
 import { PrismaClient, Prisma } from '@prisma/client'
+import { map } from 'rxjs';
 @Injectable()
 export class ProductService {
-  constructor() {} // private productRepo: MongoRepository<Products>, // @InjectRepository(Products)
+  constructor() {} 
   products: Product[] = [];
+
   prisma = new PrismaClient()
-  // With TypeORM method
-   create(createProductDto: Product) {
-    ///createProductDto.productId = crypto.randomUUID();
-    return this.prisma.product.create({ data: createProductDto });
-   //return this.productRepo.save(createProductDto); //use update with upsert
+   async create(createProductDto: Product) {
+    const result= await this.prisma.product.create({ data: createProductDto });
+    return result;
   }
   async findAll(){
-   // return this.productRepo.find();
+   const result= await this.prisma.product.findMany();
+   console.log("saad",result);
+   return result;
   }
   async findOne(productId: string) {
-    // const result = await this.productRepo.findOneBy({ productId }); //remove
-    // return result;
+    const result = await this.prisma.product.findUnique({ where:{id:productId} });
+    return result;
   }
   async remove(productId: string) {
-    // const result = await this.productRepo.findOneBy({ productId });
-    // return await this.productRepo.remove(result);
+     const result = await this.prisma.product.delete({ where:{id:productId}  });
+     return "Product Deleted";
   }
   async update(productId: string, updatedProduct: Product) {
-    // const productObj = await this.productRepo.findOneBy({ productId });
-    // productObj.description = updatedProduct.description;
-    // productObj.title = updatedProduct.title;
-    // productObj.price = updatedProduct.price;
-    // return await this.productRepo.save(productObj); //update it
+    const result = await this.prisma.product.update({
+        where: {
+          id:productId
+        },
+      data: updatedProduct
+    }) ; 
+  return result;
   }
 }
