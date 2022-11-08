@@ -12,7 +12,7 @@ import {
 import {changeName} from '../common/utils'
 import { Product } from '../product';
 import { ProductService } from '../product/product.service';
-import { ApiBody, ApiOkResponse, ApiCreatedResponse } from '@nestjs/swagger';
+import { ApiBody, ApiOkResponse, ApiCreatedResponse, ApiBadRequestResponse, ApiNotFoundResponse } from '@nestjs/swagger';
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
@@ -41,7 +41,8 @@ export class ProductController {
     return this.productService.remove(id);
   }
   @Get(':id')
-    @ApiOkResponse({ description: 'Product' })
+  @ApiOkResponse({ status: 201, description: 'Product' })
+  @ApiNotFoundResponse({ status: 404, description: 'ID not found.'})
   findOne(@Param('id') id: string) {
     const product = this.productService.findOne(id);
     if (product) {
