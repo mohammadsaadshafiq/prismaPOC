@@ -13,19 +13,7 @@ export class ProductService {
     return result;
   }
   async findAll(){
-    try {
-      await this.prisma.product.findMany()
-    } catch (e) {
-      if (e instanceof Prisma.PrismaClientKnownRequestError) {
-        // The .code property can be accessed in a type-safe manner
-        if (e.code === 'P2002') {
-          console.log(
-            'There is a unique constraint violation, a new user cannot be created with this email'
-          )
-        }
-      }
-      throw e
-    }
+    return await this.prisma.product.findMany()
   }
   async findOne(productId: string) {
     const  result = await this.prisma.product.findUnique({ where:{id:productId} }); 
@@ -34,7 +22,7 @@ export class ProductService {
       return result
     }
     else {
-      throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
+      throw new HttpException('ID not found', HttpStatus.NOT_FOUND);
     }
   }
   async remove(productId: string) {
