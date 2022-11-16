@@ -20,7 +20,7 @@ export class ProductController {
     @ApiCreatedResponse({ description: 'Create new product' })
     @ApiBody({ type: Product })
   create(@Body() createUserDto: Product) {
-    return this.productService.create(createUserDto);
+    return this.productService.createOrder(createUserDto);
   }
   @Get()
    @ApiOkResponse({ description: 'All Products' })

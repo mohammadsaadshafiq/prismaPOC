@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber } from 'class-validator';
+import { json } from 'stream/consumers';
 export class Product {
   productId: string; // index this id
   @ApiProperty({ type: String, description: 'title' })
@@ -11,3 +12,7 @@ export class Product {
   @IsNumber()
   public price: number;
 }
+// toString(){
+//   JSON.stringify({
+
+//   })}
