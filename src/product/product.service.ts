@@ -44,7 +44,6 @@ export class ProductService {
     return result;
   }
   createOrder(createProductDto: Product) {
-    console.log(createProductDto)
     this.billingClient.emit("order_Created", createProductDto);
   }
 }
